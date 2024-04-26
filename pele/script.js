@@ -17,20 +17,16 @@ document.addEventListener("DOMContentLoaded", function () {
   const limiteMinY = 0;
   const limiteMaxY = container.clientHeight - imagen1.offsetHeight;
 
-  // Función para mover las imágenes
   function moverImagenes() {
-    // Mover la primera imagen
+   
     let nuevaPosX1 = posX1 + direccionX1 * paso;
     let nuevaPosY1 = posY1 + direccionY1 * paso;
 
-    // Verificar límites horizontales para la primera imagen
     if (nuevaPosX1 < limiteMinX) {
       nuevaPosX1 = limiteMinX;
     } else if (nuevaPosX1 > limiteMaxX) {
       nuevaPosX1 = limiteMaxX;
     }
-
-    // Verificar límites verticales para la primera imagen
     if (nuevaPosY1 < limiteMinY) {
       nuevaPosY1 = limiteMinY;
     } else if (nuevaPosY1 > limiteMaxY) {
@@ -43,18 +39,15 @@ document.addEventListener("DOMContentLoaded", function () {
     imagen1.style.left = posX1 + "px";
     imagen1.style.top = posY1 + "px";
 
-    // Mover la segunda imagen
     let nuevaPosX2 = posX2 + direccionX2 * paso;
     let nuevaPosY2 = posY2 + direccionY2 * paso;
 
-    // Verificar límites horizontales para la segunda imagen
     if (nuevaPosX2 < limiteMinX) {
       nuevaPosX2 = limiteMinX;
     } else if (nuevaPosX2 > limiteMaxX) {
       nuevaPosX2 = limiteMaxX;
     }
 
-    // Verificar límites verticales para la segunda imagen
     if (nuevaPosY2 < limiteMinY) {
       nuevaPosY2 = limiteMinY;
     } else if (nuevaPosY2 > limiteMaxY) {
@@ -73,28 +66,28 @@ document.addEventListener("DOMContentLoaded", function () {
     const tecla = event.key.toLowerCase();
     switch (tecla) {
       case "w":
-        direccionY1 = -1; // Arriba para la primera imagen
+        direccionY1 = -1;
         break;
       case "a":
-        direccionX1 = -1; // Izquierda para la primera imagen
+        direccionX1 = -1;
         break;
       case "s":
-        direccionY1 = 1; // Abajo para la primera imagen
+        direccionY1 = 1; 
         break;
       case "d":
-        direccionX1 = 1; // Derecha para la primera imagen
+        direccionX1 = 1; 
         break;
       case "i":
-        direccionY2 = -1; // Arriba para la segunda imagen
+        direccionY2 = -1;
         break;
       case "j":
-        direccionX2 = -1; // Izquierda para la segunda imagen
+        direccionX2 = -1;
         break;
       case "k":
-        direccionY2 = 1; // Abajo para la segunda imagen
+        direccionY2 = 1; 
         break;
       case "l":
-        direccionX2 = 1; // Derecha para la segunda imagen
+        direccionX2 = 1; 
         break;
       default:
         break;
@@ -142,22 +135,22 @@ document.addEventListener("DOMContentLoaded", function () {
       return this.health > 0;
     }
 
-    //Ataca a otro personaje seleccionado
-    attack(target) {
-      var attack;
+    atacar(target) {
+      
+      var atacar;
       var numeroAleatorio = Math.floor(Math.random() * 100);
       if (90 > numeroAleatorio) {
-        attack = this.damage * 2;
+        atacar = this.damage * 2;
       } else {
-        attack = this.damage;
+        atacar = this.damage;
       }
       const targetRect = imagen1.getBoundingClientRect();
-      const attackerRect = imagen2.getBoundingClientRect();
-      if (isColliding(attackerRect, targetRect)) {
-        target.health -= attack;
+      const atacarerRect = imagen2.getBoundingClientRect();
+      if (isColliding(atacarerRect, targetRect)) {
+        target.health -= atacar;
       }
 
-      console.log(`${this.name} deals ${attack} DMG to ${target.name}`);
+      console.log(`${this.name} deals ${atacar} DMG to ${target.name}`);
      
     }
 
@@ -175,12 +168,12 @@ document.addEventListener("DOMContentLoaded", function () {
   //Creación de personajes
   const hero = new Character(
     "Heroe",
-    Math.floor(Math.random() * 100) + 1,
+    100,
     Math.floor(Math.random() * 10) + 5
   );
   const enemy = new Character(
-    "enemy",
-    Math.floor(Math.random() * 100) + 1,
+    "Enemy",
+    100,
     Math.floor(Math.random() * 10) + 5
   );
 
@@ -198,7 +191,7 @@ document.addEventListener("DOMContentLoaded", function () {
     updateHealthBars();
     while (true) {
       if (firstCharacter.isAlive()) {
-        await delay(1000); // Delay for 1 second
+        await delay(100); // Delay for 1 second
         updateHealthBars();
       } else {
         console.log(`${firstCharacter.name} died!`);
@@ -208,7 +201,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // Segundo personaje ataca si está vivo
       if (secondCharacter.isAlive()) {
-        await delay(1000); // Delay for 1 second
+        await delay(100); // Delay for 1 second
         updateHealthBars();
       } else {
         console.log(`${secondCharacter.name} died!`);
@@ -225,10 +218,10 @@ document.addEventListener("DOMContentLoaded", function () {
     // Verificar si la tecla presionada es "x"
     if (event.key === "r") {
       // Ataque del primer personaje
-      hero.attack(enemy);
+      hero.atacar(enemy);
     } else if (event.key === "u") {
       // Ataque del segundo personaje
-      enemy.attack(hero);
+      enemy.atacar(hero);
     }
   });
 
